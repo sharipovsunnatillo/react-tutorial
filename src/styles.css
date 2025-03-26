@@ -1,0 +1,61 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: aliceblue;
+}
+
+html, body {
+    min-height: 100vh;
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+}
+
+.container {
+    width: 50%;
+    text-align: center;
+}
+
+.players {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    padding: 10px;
+    width: calc(100% / 3);
+    border: 1px solid lightgray;
+}
+
+.name {
+    padding: 3px;
+    margin-left: 10px;
+}
+
+.btn {
+    padding: 3px;
+    border-radius: 3px;
+    border: none;
+    color: coral;
+}
+
+.game-board {
+    margin-top: 20px;
+}
+
+.symbol {
+    padding: 3px;
+    border: none;
+}
