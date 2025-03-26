@@ -27,6 +27,10 @@ function App() {
                 <div className="cell"><span className="symbol">0</span></div>
             </div>
         </div>
+        <div className="game-over">
+            <p>Player 1 won or draw</p>
+            <button className="btn">Rematch</button>
+        </div>
     </main>
 }
 
