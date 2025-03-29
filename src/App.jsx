@@ -1,71 +1,64 @@
-import { useState } from "react";
+import Players from "./components/Players.jsx";
+import GameBoard from "./components/GameBoard.jsx";
+import GameOver from "./components/GameOver.jsx";
+import {useState} from "react";
 
-const Player = ({ name, onChange }) => {
-    const [editing, setEditing] = useState(false);
+export default function App() {
+    const [players, setPlayers] = useState({X: "X player", O: "O player"});
+    const [cells, setCells] = useState(Array(9).fill(null));
+    const [turn, setTurn] = useState("X");
+    const [winner, setWinner] = useState(null);
 
-    function handleEdit(event) {
-        setEditing(previous => !previous);
-        onChange(event.target.value);
+    function calculateWinner(newCells) {
+        const lines = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        for (let i = 0; i < lines.length; i++) {
+            const [a, b, c] = lines[i];
+            if (newCells[a] && newCells[a] === newCells[b] && newCells[a] === newCells[c]) {
+                return players[newCells[a]];
+            }
+        }
+        if (newCells.every(cell => cell !== null)) {
+            return "Draw";
+        }
+        return null;
     }
-    
-    return <div className="player">
-        {!editing && <span className="name">{name}</span>}
-        {editing && <input type="text" defaultValue={name} />}
-        <button className="btn" onClick={(event)=>handleEdit(event)}>
-            {editing ? "Save" : "Edit"}
-        </button>
-    </div>
+
+    function handleMove(index) {
+        if (cells[index] || winner) return;
+
+        const newCells = [...cells];
+        newCells[index] = turn;
+        setCells(newCells);
+
+        const newWinner = calculateWinner(newCells);
+        if (newWinner) {
+            setWinner(newWinner);
+        } else {
+            setTurn(prev => (prev === "X" ? "O" : "X"));
+        }
+    }
+
+    function rematch() {
+        setCells(Array(9).fill(null));
+        setTurn("X");
+        setWinner(null);
+    }
+
+    return (
+        <main className="container">
+            <Players players={players} onChange={setPlayers}/>
+            <GameBoard cells={cells} onSelect={handleMove}/>
+            <GameOver winner={winner} rematch={rematch}/>
+        </main>
+    );
 }
-
-function App() {
-
-  return (
-    <main className="container">
-      <div className="players">
-        <Player name="Player 1" />
-        <Player name="Player 2" />
-      </div>
-      <div className="game-board">
-        <div className="row">
-          <div className="cell">
-            <span className="symbol">0</span>
-          </div>
-          <div className="cell">
-            <span className="symbol">0</span>
-          </div>
-          <div className="cell">
-            <span className="symbol">0</span>
-          </div>
-        </div>
-        <div className="row">
-          <div className="cell">
-            <span className="symbol">0</span>
-          </div>
-          <div className="cell">
-            <span className="symbol">0</span>
-          </div>
-          <div className="cell">
-            <span className="symbol">0</span>
-          </div>
-        </div>
-        <div className="row">
-          <div className="cell">
-            <span className="symbol">0</span>
-          </div>
-          <div className="cell">
-            <span className="symbol">0</span>
-          </div>
-          <div className="cell">
-            <span className="symbol">0</span>
-          </div>
-        </div>
-      </div>
-      <div className="game-over">
-        <p>Player 1 won or draw</p>
-        <button className="btn">Rematch</button>
-      </div>
-    </main>
-  );
-}
-
-export default App;

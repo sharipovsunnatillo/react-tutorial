@@ -2,61 +2,97 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: black;
-}
-
-html, body {
-    min-height: 100vh;
 }
 
 #root {
-    min-height: 100vh;
+    position: relative;
     display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    height: 100vh;
+    width: 100vw;
+    background-image: url("/public/images/x0.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+}
+
+#root::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 0;
 }
 
 .container {
-    width: 50%;
+    margin: auto;
+    /*width: 50%;*/
     text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: #fff;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .players {
     display: flex;
-    flex-direction: row;
+    width: 100%;
     justify-content: space-around;
+    margin-bottom: 30px;
+    gap: 24px;
+    font-size: 24px;
 }
 
-.row {
+.player {
+    width: 100%;
     display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 6px;
 }
 
-.cell {
-    padding: 10px;
-    width: 5rem;
-    height: 5rem;
-    border: 1px solid lightgray;
+.player button {
+    padding: 8px 16px;
+    border: 1px solid aliceblue;
+    border-radius: 8px;
 }
 
-.name {
-    padding: 3px;
-    margin-left: 10px;
+.player input {
+    padding: 8px 16px;
+    border: 1px solid aliceblue;
+    border-radius: 8px;
 }
 
-.btn {
-    padding: 3px;
-    border-radius: 3px;
-    border: none;
-    color: coral;
+.game-over button {
+    padding: 8px 16px;
+    border: 1px solid aliceblue;
+    border-radius: 8px;
+    margin-top: 10px;
 }
 
 .game-board {
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    Width: 400px;
+    justify-content: center;
+    gap: 16px;
 }
 
-.symbol {
-    padding: 3px;
-    border: none;
+.cell {
+    width: 120px;
+    height: 120px;
+    border-radius: 16px;
+    backdrop-filter: blur(5px);
+    background: rgba(56, 56, 56, 0.5);
+    color: rgba(48, 218, 255, 0.80);
+    border: 2px solid rgba(48, 218, 255, 0.80);
+    font-size: 32px;
+
 }
